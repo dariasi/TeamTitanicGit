@@ -13,7 +13,7 @@ data <- data %>%
 
 # Substitute "Miss." or "Mlle." for "Ms."
 data <- data %>%
-  mutate(title = str_replace_all(Title, c("Miss\\." = "Ms.", "Mlle\\." = "Ms.")))
+  mutate(Title = str_replace_all(Title, c("Miss\\." = "Ms.", "Mlle\\." = "Ms.")))
 
 # Transform 'Survived', 'Sex', 'Embarked' columns into factors:
 data$Survived <- factor(data$Survived)
@@ -24,11 +24,14 @@ data$Embarked <- factor(data$Embarked)
 data$Pclass <- factor(data$Pclass, levels = c(1, 2, 3), ordered = TRUE)
 
 #Imput missing values in the variable "Age"
-age_medians <- tapply(data$Age, data$title, median, na.rm = TRUE)
+age_medians <- tapply(data$Age, data$Title, median, na.rm = TRUE)
 data$Age <- ifelse(is.na(data$Age), age_medians[data$title], data$Age)
 
 #Extract Cabin information
-data$Side <- ifelse(as.integer(sub("\\D+", " ", data$Cabin)) %% 2 == 1, "Starboard", "Port")
+data$Side <- ifelse(data$Cabin == "", NA,
+                    ifelse(as.numeric(gsub(" .*", "", gsub("\\D", "", data$Cabin))) %% 2 == 1, 
+                           "Starboard", 
+                           "Port"))
 data$Deck <- gsub("([A-Za-z]+).*", "\\1", data$Cabin)
 data$Deck[data$Deck == ""] <- NA
 
@@ -40,8 +43,3 @@ data$Cabin <- NULL
 
 #save csv data
 write.csv(data, file = "data_cleaned.csv", row.names = FALSE)
-
-  
-  
-  
-  
