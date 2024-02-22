@@ -25,7 +25,7 @@ data$Pclass <- factor(data$Pclass, levels = c(1, 2, 3), ordered = TRUE)
 
 #Imput missing values in the variable "Age"
 age_medians <- tapply(data$Age, data$Title, median, na.rm = TRUE)
-data$Age <- ifelse(is.na(data$Age), age_medians[data$title], data$Age)
+data$Age <- ifelse(is.na(data$Age), age_medians[data$Title], data$Age)
 
 #Extract Cabin information
 data$Side <- ifelse(data$Cabin == "", NA,
@@ -43,3 +43,4 @@ data$Cabin <- NULL
 
 #save csv data
 write.csv(data, file = "data_cleaned.csv", row.names = FALSE)
+
