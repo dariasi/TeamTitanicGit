@@ -38,9 +38,3 @@ analyze_metric_dichotomous <- function(metric_col, dichotomous_col) {
   print("Mann-Whitney U Test:")
   print(mwu_test_res)
 }
-
-
-data <- read.csv("data_cleaned.csv")
-data$Sex = factor(as.numeric(factor(data$Sex)) - 1)
-summary(data)
-analyze_metric_dichotomous(data$Age, data$Sex)
