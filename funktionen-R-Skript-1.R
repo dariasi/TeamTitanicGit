@@ -1,6 +1,7 @@
 library(dplyr)
 library(psych)
 library(effsize)
+library(vcd)
 
 # 1 Descriptive statistics for metric variables
 # Average Function
@@ -42,8 +43,8 @@ Rate <- function(data,var_2) {
 # Returns:
 #   Prints a cross-tabulation of the two variables and the result of the Chi-square test.
 Chi_square_test <- function(data, var3, var4) {
-  cross_tab <- table(data[[var3]], data[[var4]])
-  chi_square_test <- chisq.test(cross_tab)
+  cross_tab <- cross_tab(data, var3, var4)
+  chi_square_test <- chi_square_tst(cross_tab)
   
   print("cross_tab:")
   print(cross_tab)
@@ -75,16 +76,29 @@ analyze_metric_dichotomous <- function(metric_col, dichotomous_col) {
   group1 <- data[data$dichotomous_col == 0, ]$metric_col
   group2 <- data[data$dichotomous_col == 1, ]$metric_col
   
-  # T-test
-  ttest_res <- t.test(group1, group2)
-  
-  # Mann-Whitney U Test
-  mwu_test_res <- wilcox.test(group1, group2)
-  
-  # Results
+  #Results(T_test and Mann_Whitney_U_Test added as interior functions)
+  ttest_res <- T_test(group1, group2)
   print("T-Test:")
   print(ttest_res)
-  
+  mwu_test_res <- Mann_Whitney_U_test(group1, group2)
   print("Mann-Whitney U Test:")
   print(mwu_test_res)
 }
+
+# 5 Function to visualize three or four categorical variables
+# Mosaicplot function
+#Description:
+#Produces mosaic plot for 3 or 4 categorical variables
+#Parameters: data: data set containing categorical variables
+# kvar1, kvar2, kvar3, kvar4:categorical variables
+#return:
+# prints a mosaic plot for the categorical variables
+create_mosaic_plot <- function(data, kvar1, kvar2, kvar3...) {
+
+  # Create the mosaic plot
+  mosaic(data[, c(kvar1, kvar2, kvar3)])
+  
+  # Add title
+  title(main = "Mosaic Plot of Categorical Variables")
+}
+create_mosaic_plot(data, data$Survived,data$Pclass, data$Sex)
