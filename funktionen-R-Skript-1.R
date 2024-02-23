@@ -2,6 +2,56 @@ library(dplyr)
 library(psych)
 library(effsize)
 
+# 1 Descriptive statistics for metric variables
+# Average Function
+# Description:
+#   Calculates the average of a metric variable in a dataset.
+# Parameters:
+#   data: The dataset from which the average is calculated (data.frame).
+#   var_1: The name of the metric variable as a string, for which the average is calculated.
+# Returns:
+#   Prints the average value of the specified variable.
+Average <- function(data,var_1) {
+  average <- mean(data[[var_1]], na.rm = TRUE)
+  print(paste("Average", var_1, ":", average))
+}
+
+
+# 2 Descriptive statistics for categorical variables
+# Rate Function
+# Description:
+#   Calculates the rate (as a percentage) of ones in a categorical variable.
+# Parameters:
+#   data: The dataset from which the rate is calculated (data.frame).
+#   var_2: The name of the categorical variable as a string, for which the rate is calculated.
+# Returns:
+#   Prints the rate of ones in the specified variable.
+Rate <- function(data,var_2) {
+  rate <- mean(data[[var_2]] == 1) * 100
+  print(paste(var_2, "Rate", ":", rate))
+}
+
+
+# 3 Descriptive bivariate statistics for categorical variables
+# Chi_square_test Function
+# Description:
+#   Performs a Chi-square test between two categorical variables to check their association.
+# Parameters:
+#   data: The dataset containing the categorical variables (data.frame).
+#   var3, var4: The names of the two categorical variables as strings.
+# Returns:
+#   Prints a cross-tabulation of the two variables and the result of the Chi-square test.
+Chi_square_test <- function(data, var3, var4) {
+  cross_tab <- table(data[[var3]], data[[var4]])
+  chi_square_test <- chisq.test(cross_tab)
+  
+  print("cross_tab:")
+  print(cross_tab)
+  print("Chi_square_test:")
+  print(chi_square_test)
+}
+
+
 #' Analyze relationship between a metric and a dichotomous variable
 #'
 #' This function performs statistical analyses to explore the relationship 
@@ -17,31 +67,6 @@ library(effsize)
 #' metric_data <- rnorm(100, mean = 50, sd = 10)
 #' dichotomous_data <- sample(0:1, 100, replace = TRUE)
 #' analyze_metric_dichotomous(metric_data, dichotomous_data)
-
- 
-# 1 Descriptive statistics for metric variables
-Average <- function(data,var_1) {
-  average <- mean(data[var_1], na.rm = TRUE)
-  print(paste("Average", var_1, ":", average))
-}
-
-# 2 Descriptive statistics for categorical variables
-Rate <- function(data,var_2) {
-  rate <- mean(data[var_2] == 1) * 100
-  print(paste(var_2, "Rate", ":", rate))
-}
-
-# 3 Descriptive bivariate statistics for categorical variables
-Chi_square_test <- function(data, var3, var4) {
-  cross_tab <- table(data[[var3]], data[[var4]])
-  chi_square_test <- chisq.test(cross_tab)
-  
-  print("cross_tab:")
-  print(cross_tab)
-  print("Chi_square_test:")
-  print(chi_square_test)
-}
-
 analyze_metric_dichotomous <- function(metric_col, dichotomous_col) {
   
   data <- data.frame(metric_col, dichotomous_col)
