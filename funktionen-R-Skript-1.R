@@ -17,6 +17,31 @@ library(effsize)
 #' metric_data <- rnorm(100, mean = 50, sd = 10)
 #' dichotomous_data <- sample(0:1, 100, replace = TRUE)
 #' analyze_metric_dichotomous(metric_data, dichotomous_data)
+
+ 
+# 1 Descriptive statistics for metric variables
+Average <- function(data,var_1) {
+  average <- mean(data[var_1], na.rm = TRUE)
+  print(paste("Average", var_1, ":", average))
+}
+
+# 2 Descriptive statistics for categorical variables
+Rate <- function(data,var_2) {
+  rate <- mean(data[var_2] == 1) * 100
+  print(paste(var_2, "Rate", ":", rate))
+}
+
+# 3 Descriptive bivariate statistics for categorical variables
+Chi_square_test <- function(data, var3, var4) {
+  cross_tab <- table(data[[var3]], data[[var4]])
+  chi_square_test <- chisq.test(cross_tab)
+  
+  print("cross_tab:")
+  print(cross_tab)
+  print("Chi_square_test:")
+  print(chi_square_test)
+}
+
 analyze_metric_dichotomous <- function(metric_col, dichotomous_col) {
   
   data <- data.frame(metric_col, dichotomous_col)
