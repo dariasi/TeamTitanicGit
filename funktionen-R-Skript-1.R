@@ -17,21 +17,40 @@ library(effsize)
 #' metric_data <- rnorm(100, mean = 50, sd = 10)
 #' dichotomous_data <- sample(0:1, 100, replace = TRUE)
 #' analyze_metric_dichotomous(metric_data, dichotomous_data)
-analyze_metric_dichotomous <- function(metric_col, dichotomous_col) {
+function_1 <- function(data, var_1, var_2, var3, var4, metric_col, dichotomous_col) {
+  
+  # 1 Descriptive statistics for metric variables
+  average <- mean(data[[var_1]], na.rm = TRUE)
+  
+  # 2 Descriptive statistics for categorical variables
+  rate <- mean(data[[var_2]] == 1) * 100
+  
+  # 3 Descriptive bivariate statistics for categorical variables
+  cross_tab <- table(data[[var3]], data[[var4]])
+  chi_square_test <- chisq.test(cross_tab)
   
   data <- data.frame(metric_col, dichotomous_col)
   
-  # Subset data based on the dichotomous variable
+  # 4 Subset data based on the dichotomous variable
   group1 <- data[data$dichotomous_col == 0, ]$metric_col
   group2 <- data[data$dichotomous_col == 1, ]$metric_col
   
-  # T-test
+  # 5 T-test
   ttest_res <- t.test(group1, group2)
   
-  # Mann-Whitney U Test
+  # 6 Mann-Whitney U Test
   mwu_test_res <- wilcox.test(group1, group2)
   
   # Results
+  print(paste("Average", var_1, ":", average))
+  
+  print(paste(var_2, "Rate", ":", rate))
+  
+  print("cross_tab:")
+  print(cross_tab)
+  print("Chi_square_test:")
+  print(chi_square_test)
+  
   print("T-Test:")
   print(ttest_res)
   
