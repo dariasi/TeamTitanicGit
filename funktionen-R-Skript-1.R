@@ -38,7 +38,7 @@ Rate <- function(data,var_2) {
 #' Chi_square_test(data_cleaned, "Pclass", "Survived")
 Chi_square_test <- function(data, var1, var2) {
 
-  cross_tab <- table(data[[var1]], data[[var2]])
+  cross_tab <- table(data[var1], data[var2])
   chi_square <- chisq.test(cross_tab)
 
   print("Сross_tab: ")
@@ -98,14 +98,24 @@ analyze_metric_dichotomous <- function(metric_col, dichotomous_col) {
 #Description:
 #Produces mosaic plot for 3 or 4 categorical variables
 #Parameters: data: data set containing categorical variables
-# kvar1, kvar2, kvar3, kvar4:categorical variables
+# ...:names of categorical variables
 #return:
 # prints a mosaic plot for the categorical variables
-create_mosaic_plot <- function(data, kvar1, kvar2, kvar3...) {
-
-  # Create the mosaic plot
-  mosaic(data[, c(kvar1, kvar2, kvar3)])
-  
-  # Add title
+create_mosaic_plot <- function(data, ...) {
+  mosaic(formula(data,...), data = data)
   title(main = "Mosaic Plot of Categorical Variables")
 }
+# 6 Function to visualize three or four categorical variables after cleaning data
+# Mosaicplot function
+#Description:
+#Produces mosaic plot for 3 or 4 categorical variables
+#Parameters: data: data set containing categorical variables
+# ...:names of categorical variables
+#return:
+# prints a mosaic plot for the categorical variables
+create_clean_mosaic_plot <- function(data, ...) {
+  clean_data <- prepare_mosaic_data(data, ...)
+  mosaic(formula(clean_data,...), data = clean_data)
+  title(main = "Mosaic Plot of Categorical Variables")
+}
+

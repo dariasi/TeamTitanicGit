@@ -17,7 +17,7 @@ Mann_Whitney_U_test <- function(group1, group2) {
 
 #Helper function for conducting cross-tab
 cross_tab <- function(data,var3,var4){
-  cross_tab <- table(data[[var3]], data[[var4]])
+  cross_tab <- table(data[var3], data[var4])
   return(cross_tab)}
 
 #Helper function for conducting chi square test
@@ -25,9 +25,19 @@ chi_square_tst <- function(table){
   chi_square_tst <- chisq.test(cross_tab)
   return(chi_square_tst)
 }
+
+#Helper function for converting input varible to correct formula for mosaic plotting
+formula <- function (data,...){
+  categorical_vars <- as.character(substitute(list(...))[-1])
+  formula <- as.formula(paste("~", paste(categorical_vars, collapse = "+")))
+  return(formula)
+}
+
 #Helper function for mosaiqplot
-prepare_mosaic_data <- function(data,  kvar1, kvar2, kvar3,kvar4) {
-  subset_data <- data[, c( kvar1, kvar2, kvar3,kvar4)]
+prepare_mosaic_data <- function(data, ...) {
+  categorical_vars <- as.character(substitute(list(...)))[-1]
+  subset_data <- data[, categorical_vars]
   clean_data <- na.omit(subset_data)
   return(clean_data)
 }
+create_mosaic_plot(data, Survived, Sex, Pclass)
