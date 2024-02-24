@@ -7,7 +7,8 @@ library(vcd)
 #' Calculates the average of a metric variable in a dataset.
 #' @param data the dataset from which the average is calculated.
 #' @param var_1 the name of the metric variable as a string, for which the average is calculated.
-#' @examples 
+#' @examples
+#' data_cleaned <- read.csv("data_cleaned.csv") 
 #' Average(data_cleaned, "Age")
 Average <- function(data,var_1) {
   average <- mean(data[[var_1]], na.rm = TRUE)
@@ -20,6 +21,7 @@ Average <- function(data,var_1) {
 #' @param data the dataset from which the rate is calculated.
 #' @param var_2 the name of the metric variable as a string, for which the rate is calculated.
 #' @examples 
+#' data_cleaned <- read.csv("data_cleaned.csv") 
 #' Rate(data_cleaned, "Survived")
 Rate <- function(data,var_2) {
   rate <- mean(data[[var_2]] == 1) * 100
@@ -32,6 +34,7 @@ Rate <- function(data,var_2) {
 #' @param data the dataset from which the rate is calculated.
 #' @param var1, var2 the names of the two categorical variables as strings.
 #' @examples 
+#' data_cleaned <- read.csv("data_cleaned.csv") 
 #' Chi_square_test(data_cleaned, "Pclass", "Survived")
 Chi_square_test <- function(data, var1, var2) {
 
