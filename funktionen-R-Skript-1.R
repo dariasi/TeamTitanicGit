@@ -3,15 +3,12 @@ library(psych)
 library(effsize)
 library(vcd)
 
-# 1 Descriptive statistics for metric variables
-# Average Function
-# Description:
-#   Calculates the average of a metric variable in a dataset.
-# Parameters:
-#   data: The dataset from which the average is calculated (data.frame).
-#   var_1: The name of the metric variable as a string, for which the average is calculated.
-# Returns:
-#   Prints the average value of the specified variable.
+# 1 Descriptive statistics for metric variable
+#' Calculates the average of a metric variable in a dataset.
+#' @param data the dataset from which the average is calculated.
+#' @param var_1 the name of the metric variable as a string, for which the average is calculated.
+#' @examples 
+#' Average(data_cleaned, "Age")
 Average <- function(data,var_1) {
   average <- mean(data[[var_1]], na.rm = TRUE)
   print(paste("Average", var_1, ":", average))
@@ -19,14 +16,11 @@ Average <- function(data,var_1) {
 
 
 # 2 Descriptive statistics for categorical variables
-# Rate Function
-# Description:
-#   Calculates the rate (as a percentage) of ones in a categorical variable.
-# Parameters:
-#   data: The dataset from which the rate is calculated (data.frame).
-#   var_2: The name of the categorical variable as a string, for which the rate is calculated.
-# Returns:
-#   Prints the rate of ones in the specified variable.
+#' Calculates the rate (as a percentage) of ones in a categorical variable.
+#' @param data the dataset from which the rate is calculated.
+#' @param var_2 the name of the metric variable as a string, for which the rate is calculated.
+#' @examples 
+#' Rate(data_cleaned, "Survived")
 Rate <- function(data,var_2) {
   rate <- mean(data[[var_2]] == 1) * 100
   print(paste(var_2, "Rate", ":", rate))
@@ -34,14 +28,11 @@ Rate <- function(data,var_2) {
 
 
 # 3 Descriptive bivariate statistics for categorical variables
-# Chi_square_test Function
-# Description:
-#   Performs a Chi-square test between two categorical variables to check their association.
-# Parameters:
-#   data: The dataset containing the categorical variables (data.frame).
-#   var3, var4: The names of the two categorical variables as strings.
-# Returns:
-#   Prints a cross-tabulation of the two variables and the result of the Chi-square test.
+#' Performs a Chi-square test between two categorical variables to check their association.
+#' @param data the dataset from which the rate is calculated.
+#' @param var3, var4 the names of the two categorical variables as strings.
+#' @examples 
+#' Chi_square_test(data_cleaned, "Pclass", "Survived")
 Chi_square_test <- function(data, var1, var2) {
 
   cross_tab <- table(data[[var1]], data[[var2]])
@@ -53,6 +44,7 @@ Chi_square_test <- function(data, var1, var2) {
   print("Chi_square_test: ")
   print(chi_square)
 }
+
 
 # Chi_square_test <- function(col1, col2) {
 #   
