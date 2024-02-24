@@ -42,16 +42,29 @@ Rate <- function(data,var_2) {
 #   var3, var4: The names of the two categorical variables as strings.
 # Returns:
 #   Prints a cross-tabulation of the two variables and the result of the Chi-square test.
-Chi_square_test <- function(data, var3, var4) {
-  cross_tab <- cross_tab(data, var3, var4)
-  chi_square_test <- chi_square_tst(cross_tab)
-  
-  print("cross_tab:")
+Chi_square_test <- function(data, var1, var2) {
+
+  cross_tab <- table(data[[var1]], data[[var2]])
+  chi_square <- chisq.test(cross_tab)
+
+  print("Сross_tab: ")
   print(cross_tab)
-  print("Chi_square_test:")
-  print(chi_square_test)
+
+  print("Chi_square_test: ")
+  print(chi_square)
 }
 
+# Chi_square_test <- function(col1, col2) {
+#   
+#   cross_tab <- table(col1, col2)
+#   chi_square <- chisq.test(cross_tab)
+#   
+#   print("Сross_tab: ")
+#   print(cross_tab)
+#   
+#   print("Chi_square_test: ")
+#   print(chi_square)
+# }
 
 #' Analyze relationship between a metric and a dichotomous variable
 #'
@@ -76,7 +89,7 @@ analyze_metric_dichotomous <- function(metric_col, dichotomous_col) {
   group1 <- data[data$dichotomous_col == 0, ]$metric_col
   group2 <- data[data$dichotomous_col == 1, ]$metric_col
   
-  #Results(T_test and Mann_Whitney_U_Test added as interior functions)
+  # Results(T_test and Mann_Whitney_U_Test added as interior functions)
   ttest_res <- T_test(group1, group2)
   print("T-Test:")
   print(ttest_res)
@@ -101,4 +114,3 @@ create_mosaic_plot <- function(data, kvar1, kvar2, kvar3...) {
   # Add title
   title(main = "Mosaic Plot of Categorical Variables")
 }
-create_mosaic_plot(data, data$Survived,data$Pclass, data$Sex)
