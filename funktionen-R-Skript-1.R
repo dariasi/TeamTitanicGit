@@ -30,7 +30,7 @@ Rate <- function(data,var_2) {
 # 3 Descriptive bivariate statistics for categorical variables
 #' Performs a Chi-square test between two categorical variables to check their association.
 #' @param data the dataset from which the rate is calculated.
-#' @param var3, var4 the names of the two categorical variables as strings.
+#' @param var1, var2 the names of the two categorical variables as strings.
 #' @examples 
 #' Chi_square_test(data_cleaned, "Pclass", "Survived")
 Chi_square_test <- function(data, var1, var2) {
