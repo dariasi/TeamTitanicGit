@@ -38,7 +38,7 @@ Rate <- function(data,var_2) {
 #' Chi_square_test(data_cleaned, "Pclass", "Survived")
 Chi_square_test <- function(data, var1, var2) {
 
-  cross_tab <- table(data[var1], data[var2])
+  cross_tab <- table(data[,var1], data[,var2])
   chi_square <- chisq.test(cross_tab)
 
   print("Сross_tab: ")
@@ -48,18 +48,6 @@ Chi_square_test <- function(data, var1, var2) {
   print(chi_square)
 }
 
-
-# Chi_square_test <- function(col1, col2) {
-#   
-#   cross_tab <- table(col1, col2)
-#   chi_square <- chisq.test(cross_tab)
-#   
-#   print("Сross_tab: ")
-#   print(cross_tab)
-#   
-#   print("Chi_square_test: ")
-#   print(chi_square)
-# }
 
 #' Analyze relationship between a metric and a dichotomous variable
 #'
@@ -118,4 +106,4 @@ create_clean_mosaic_plot <- function(data, ...) {
   mosaic(formula(clean_data,...), data = clean_data)
   title(main = "Mosaic Plot of Categorical Variables")
 }
-
+  

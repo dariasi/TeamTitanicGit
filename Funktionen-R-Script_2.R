@@ -40,4 +40,4 @@ prepare_mosaic_data <- function(data, ...) {
   clean_data <- na.omit(subset_data)
   return(clean_data)
 }
-create_mosaic_plot(data, Survived, Sex, Pclass)
+
