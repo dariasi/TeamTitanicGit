@@ -52,12 +52,12 @@ ggplot(survival_rates_df, aes(x = Pclass, y = SurvivalRate, fill = as.factor(Pcl
 #3) Using the Chi_square_test function to create a visualization of the relationship between the variables "Embarked" and "Survived"
 # Creating contingency table
 cross_tab <- Chi_square_test(data_cleaned, "Embarked", "Survived")
-
+cross_tab_matrix <- as.matrix(cross_tab)
 # Visualize the contingency table with a mosaic plot
-mosaicplot(cross_tab, main = "Mosaic Plot of Embarked vs Survived", color = TRUE)
+mosaicplot(cross_tab_matrix, main = "Mosaic Plot of Embarked vs Survived", color = TRUE)
 
 
-#4,5) Using analyze_metric_dichotomous and create_mosaic_plot to compare variables
+#4) Using analyze_metric_dichotomous and create_mosaic_plot to compare variables
 create_boxplot_metric_dichotomous <- function(data, metric_var, dichotomous_var) {
   # Combine data into a single data frame
   combined_data <- data.frame(metric_var = metric_var, dichotomous_var = dichotomous_var)
@@ -81,18 +81,11 @@ create_boxplot_metric_dichotomous <- function(data, metric_var, dichotomous_var)
 }
 create_boxplot_metric_dichotomous(data, data$Age, data$Survived)
 
-create_mosaic_plot(data, data$Survived,data$sex, data$Pclass)
-Chi_square_test(data , data$Survived, data$Pclass)
-
-# Function that combines data preparation and mosaic plot creation
-analyze_and_visualize_categorical_vars <- function(data,  kvar1, kvar2, kvar3,kvar4) {
-  # Prepare data for the mosaic plot
-  cleaned_data <- prepare_mosaic_data(data, kvar1, kvar2, kvar3,kvar4)
-  
-  # Create the mosaic plot
-  create_mosaic_plot(cleaned_data, categorical_vars)
+#5) Function that combines data preparation and mosaic plot creation
+analyze_and_visualize_categorical_vars <- function(data, ...) {
+create_mosaic_plot(data, ...)
 }
-
+analyze_and_visualize_categorical_vars(data,"Survived","Sex", "Pclass")
 
 #6) Using the create_clean_mosaic_plot function to create a visualization of the relationship between the variables "Survived" and "Sex"
 # Transforming all variables into categorical variables in order for mosaic plot to work
@@ -101,4 +94,3 @@ data_cleaned$AgeGroup <- cut(data_cleaned$Age, breaks = c(0, 18, 65, Inf), label
 data_cleaned$Pclass <- as.factor(data_cleaned$Pclass)
 data_cleaned$Sex <- as.factor(data_cleaned$Sex)
 create_clean_mosaic_plot(data_cleaned, "Embarked","AgeGroup", "SurvivalRate","Pclass", "Sex")
-
