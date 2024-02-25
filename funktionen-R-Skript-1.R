@@ -37,15 +37,15 @@ Rate <- function(data,var_2) {
 #' data_cleaned <- read.csv("data_cleaned.csv") 
 #' Chi_square_test(data_cleaned, "Pclass", "Survived")
 Chi_square_test <- function(data, var1, var2) {
-
   cross_tab <- table(data[,var1], data[,var2])
   chi_square <- chisq.test(cross_tab)
-
+  
   print("Сross_tab: ")
   print(cross_tab)
 
   print("Chi_square_test: ")
   print(chi_square)
+  return(cross_tab)
 }
 
 
