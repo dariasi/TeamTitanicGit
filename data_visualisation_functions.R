@@ -1,4 +1,5 @@
 library(ggplot2)
+data_cleaned <- read.csv("data_cleaned.csv") 
 
 #1) Using the Average function to create a visualization of the difference in fares between the different Pclasses
 # Creating the data for different classes
@@ -94,5 +95,10 @@ analyze_and_visualize_categorical_vars <- function(data,  kvar1, kvar2, kvar3,kv
 
 
 #6) Using the create_clean_mosaic_plot function to create a visualization of the relationship between the variables "Survived" and "Sex"
-create_clean_mosaic_plot(data_cleaned, "Survived", "Sex")
+# Transforming all variables into categorical variables in order for mosaic plot to work
+data_cleaned$SurvivalRate <- ifelse(data_cleaned$Survived == 1, "Survived", "Did Not Survive")
+data_cleaned$AgeGroup <- cut(data_cleaned$Age, breaks = c(0, 18, 65, Inf), labels = c("Child", "Adult", "Senior"))
+data_cleaned$Pclass <- as.factor(data_cleaned$Pclass)
+data_cleaned$Sex <- as.factor(data_cleaned$Sex)
+create_clean_mosaic_plot(data_cleaned, "Embarked","AgeGroup", "SurvivalRate","Pclass", "Sex")
 
