@@ -1,4 +1,5 @@
 library(ggplot2)
+data_cleaned <- read.csv("data_cleaned.csv") 
 
 #1) Using the Average function to create a visualization of the difference in fares between the different Pclasses
 # Creating the data for different classes
