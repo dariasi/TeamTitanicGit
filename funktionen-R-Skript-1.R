@@ -38,7 +38,7 @@ Rate <- function(data,var_2) {
 #' Chi_square_test(data_cleaned, "Pclass", "Survived")
 Chi_square_test <- function(data, var1, var2) {
 
-  cross_tab <- table(data[var1], data[var2])
+  cross_tab <- table(data[[var1]], data[[var2]])
   chi_square <- chisq.test(cross_tab)
 
   print("Сross_tab: ")
