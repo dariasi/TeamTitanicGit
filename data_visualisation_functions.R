@@ -52,9 +52,9 @@ ggplot(survival_rates_df, aes(x = Pclass, y = SurvivalRate, fill = as.factor(Pcl
 #3) Using the Chi_square_test function to create a visualization of the relationship between the variables "Embarked" and "Survived"
 # Creating contingency table
 cross_tab <- Chi_square_test(data_cleaned, "Embarked", "Survived")
-cross_tab_matrix <- as.matrix(cross_tab)
+
 # Visualize the contingency table with a mosaic plot
-mosaicplot(cross_tab_matrix, main = "Mosaic Plot of Embarked vs Survived", color = TRUE)
+mosaicplot(cross_tab, main = "Mosaic Plot of Embarked vs Survived", color = TRUE)
 
 
 #4) Using analyze_metric_dichotomous and create_mosaic_plot to compare variables
